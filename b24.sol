@@ -403,7 +403,7 @@ abstract contract ERC20Detailed is IERC20 {
     }
 }
 
-contract clock24 is ERC20Detailed, Ownable {
+contract box24 is ERC20Detailed, Ownable {
 
     using SafeMath for uint256;
     using SafeMathInt for int256;
