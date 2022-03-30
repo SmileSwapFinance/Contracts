@@ -495,10 +495,10 @@ contract clock24 is ERC20Detailed, Ownable {
             address(this)
         );
       
-        autoLiquidityReceiver = 0x7CCeaFfBb948940434A8214469f47f8235868ad3;
-        treasuryReceiver = 0x0BF03a34e8BDf028C50A98Bb04f4BE7D43e17021; 
-        boxInsuranceFundReceiver = 0x0827916234dd165eED8335BC9b5d72ed5fDeAa45;
-        firePit = 0x84d1409bccd06CCf310344470ECa6007531E36Bc;
+        autoLiquidityReceiver = 0x04148CAd6E138FAfd68293a7410775307061AB3d;
+        treasuryReceiver = 0x026071A98720340F7560866E472611e485c918EB; 
+        boxInsuranceFundReceiver = 0xe880f0fbC8b07fdb8C28A55eB6C40646519E7842;
+        firePit = 0xa423A41A665860cCD747B5EF18eC3eFA679554D8;
 
         _allowedFragments[address(this)][address(router)] = type(uint256).max;
         pairAddress = pair;
