@@ -1,4 +1,10 @@
 //Box24 Protocol
+//https://box24.finance
+//https://twitter.com/Box24protocol
+//https://t.me/Box24Protocol
+//https://www.reddit.com/r/Box24Protocol/
+//https://github.com/box24protocol
+//https://box24protocol.gitbook.io
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.12;
@@ -431,13 +437,10 @@ contract box24 is ERC20Detailed, Ownable {
     uint256 private constant INITIAL_FRAGMENTS_SUPPLY =
         600 * 10**3 * 10**DECIMALS;
 
-    uint256 public liquidityFee = 40;
-    uint256 public treasuryFee = 25;
+    uint256 public liquidityFee = 20;
+    uint256 public treasuryFee = 45;
     uint256 public boxInsuranceFundFee = 50;
-    uint256 public sellFeel = 10;
-    uint256 public sellFeet = 10;
-    uint256 public sellFees = 10;
-    uint256 public sellFeef = 10;
+    uint256 public sellFee = 20;
     uint256 public firePitFee = 25;
     uint256 public totalFee =
         liquidityFee.add(treasuryFee).add(boxInsuranceFundFee).add(
@@ -640,19 +643,11 @@ contract box24 is ERC20Detailed, Ownable {
     ) internal  returns (uint256) {
         uint256 _totalFee = totalFee;
         uint256 _treasuryFee = treasuryFee;
-        uint256 _liquidityFee = liquidityFee;
-        uint256 _boxInsuranceFundFee = boxInsuranceFundFee;
-        uint256 _firePitFee = firePitFee;
 
         if (recipient == pair) {
             _totalFee =
-             totalFee.add(sellFeet).add(sellFeef)
-             .add(sellFees).add(sellFeel);
-            _treasuryFee = treasuryFee.add(sellFeet);
-            _liquidityFee = liquidityFee.add(sellFeel);
-            _boxInsuranceFundFee = boxInsuranceFundFee.add(sellFees);
-            _firePitFee = firePitFee.add(sellFeef); 
-
+             totalFee.add(sellFee);
+            _treasuryFee = treasuryFee.add(sellFee);
             
         }
 
@@ -662,7 +657,7 @@ contract box24 is ERC20Detailed, Ownable {
             gonAmount.div(feeDenominator).mul(firePitFee)
         );
         _gonBalances[address(this)] = _gonBalances[address(this)].add(
-            gonAmount.div(feeDenominator).mul(_treasuryFee.add(clockInsuranceFundFee))
+            gonAmount.div(feeDenominator).mul(_treasuryFee.add(boxInsuranceFundFee))
         );
         _gonBalances[autoLiquidityReceiver] = _gonBalances[autoLiquidityReceiver].add(
             gonAmount.div(feeDenominator).mul(liquidityFee)
@@ -748,8 +743,8 @@ contract box24 is ERC20Detailed, Ownable {
             ),
             gas: 30000
         }("");
-        (success, ) = payable(clockInsuranceFundReceiver).call{
-            value: amountETHToTreasuryAndSIF.mul(clockInsuranceFundFee).div(
+        (success, ) = payable(boxInsuranceFundReceiver).call{
+            value: amountETHToTreasuryAndSIF.mul(boxInsuranceFundFee).div(
                 treasuryFee.add(boxInsuranceFundFee)
             ),
             gas: 30000
